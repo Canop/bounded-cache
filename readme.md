@@ -56,28 +56,28 @@ Gotchas :
 
 ### set(key, value)
 
-	Sets a pair (key,value). If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
+Sets a pair (key,value). If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
 
 ### set(key, value, ttl)
 
-	Sets a pair (key,value) with an additionl validity duration in ms. If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
+Sets a pair (key,value) with an additionl validity duration in ms. If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
 
 ### get(key)
 
-	Returns the value. The pair (key,value) is considered to be the most recently accessed. If nothing was set for this key, returns undefined. If the object is too old (which can only happen if a ttl was provided in set), undefined is returned.
+Returns the value. The pair (key,value) is considered to be the most recently accessed. If nothing was set for this key, returns undefined. If the object is too old (which can only happen if a ttl was provided in set), undefined is returned.
 	
 ### peek(key)
 
-	Same as get without accessing the pair (and thus not preventing a removal from the cache).
+Same as get without accessing the pair (and thus not preventing a removal from the cache).
 	
 ### del(key)
 
-	Removes the pair (key,value). Returns the value.
+Removes the pair (key,value). Returns the value.
 	
 ### size()
 	
-	Returns the number of cached keys, in [0, capacity].
+Returns the number of cached keys, in [0, capacity].
 	
 ### content()
 
-	Returns all pairs (key,value), from the oldest to the last recently accessed. This operation is only here for test purposes.
+Returns all pairs (key,value), from the oldest to the last recently accessed. This operation is only here for test purposes.
