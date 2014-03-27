@@ -1,0 +1,30 @@
+{
+  "name": "bounded-cache",
+  "version": "0.0.0",
+  "description": "A fast synchronous memory cache forgetting the least recently used entry when the maximal number of entries is reached",
+  "main": "js/bounded-cache.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "buster-test"
+  },
+  "author": "Denys Seguret <denys.seguret@gmail.com> (http://dystroy.org/)",
+  "license": "MIT",
+  "keywords": [
+    "cache",
+    "linked-list",
+    "bounded",
+    "memory"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Canop/bounded-cache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Canop/bounded-cache/issues"
+  },
+  "homepage": "https://github.com/Canop/bounded-cache"
+}

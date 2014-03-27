@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -f js/bounded-cache.js
+cp src/bounded-cache_prototypeImpl.js js/bounded-cache.js
+
+exit 0

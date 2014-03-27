@@ -1,0 +1,8 @@
+#!/bin/bash
+cwd=${PWD}
+trap 'cd "$cwd"' EXIT
+cd "$cwd/benchmark"
+
+node compare.js
+
+exit 0
