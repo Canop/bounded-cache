@@ -26,59 +26,62 @@ Gotchas :
 
 	npm install bounded-cache
 	
-	var cache = require('bounded-cache')(2000);
-	cache.set('A', {my:'object'});
-	cache.set('B', null);
-	console.log(cache.get('A')); // {my:'object'}
-	console.log(cache.get('B')); // null
-	console.log(cache.get('C')); // undefined
-	
+```js
+var cache = require('bounded-cache')(2000);
+cache.set('A', {my:'object'});
+cache.set('B', null);
+console.log(cache.get('A')); // {my:'object'}
+console.log(cache.get('B')); // null
+console.log(cache.get('C')); // undefined
+```
 
 ## Example 
 
-	var cache = require('bounded-cache')(2000);
-	function serve(key){
-		var obj = cache.get(key);
-		if (obj === undefined) {
-			asynchronousLoad(key, function(err, obj){
-				// we store null in case of err to avoid fetching again and again
-				cache.set(key, err ? null : obj);
-				ui.display(err, obj);
-			});
-		} else if (obj === null) {
-			ui.display("object doesn't exist");
-		} else {
-			ui.display(null, obj);
-		}	
-	}
+```js
+var cache = require('bounded-cache')(2000);
+function serve(key){
+	var obj = cache.get(key);
+	if (obj === undefined) {
+		asynchronousLoad(key, function(err, obj){
+			// we store null in case of err to avoid fetching again and again
+			cache.set(key, err ? null : obj);
+			ui.display(err, obj);
+		});
+	} else if (obj === null) {
+		ui.display("object doesn't exist");
+	} else {
+		ui.display(null, obj);
+	}	
+}
+```
 
 ## API
 
-### set(key, value)
+#### set(key, value)
 
 Sets a pair (key,value). If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
 
-### set(key, value, ttl)
+#### set(key, value, ttl)
 
 Sets a pair (key,value) with an additionl validity duration in ms. If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
 
-### get(key)
+#### get(key)
 
 Returns the value. The pair (key,value) is considered to be the most recently accessed. If nothing was set for this key, returns undefined. If the object is too old (which can only happen if a ttl was provided in set), undefined is returned.
 	
-### peek(key)
+#### peek(key)
 
 Same as get without accessing the pair (and thus not preventing a removal from the cache).
 	
-### del(key)
+#### del(key)
 
 Removes the pair (key,value). Returns the value.
 	
-### size()
+#### size()
 	
 Returns the number of cached keys, in [0, capacity].
 	
-### content()
+#### content()
 
 Returns all pairs (key,value), from the oldest to the last recently accessed. This operation is only here for test purposes.
 
