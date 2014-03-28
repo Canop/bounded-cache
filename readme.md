@@ -1,4 +1,6 @@
 
+## Introduction
+
 A simple in memory cache forgetting the least recently accessed entry when the maximal number of entries is reached.
 
 All operations are fast, O(1) and synchronous.
@@ -20,23 +22,21 @@ Gotchas :
 * the implementation doesn't guarantee a removal of entries based on TTL, least recently accessed entry is the main criterium (it does guarantee get or peek don't return an expired value, though)
 * as said precedently, it's not even released, so obviously you should *not* use it...
 
-## Examples 
+## Quick Start
 
-### Example 1 - no invalidation, standard use case
-
-
-### Example 2 - with TTL based invalidation
-
-
-### Example 3 - with explicit invalidation of entries
-
-	var cache = require('bounded-cache')(20);
-
-	// we're informed our object isn't up to date, let's clean the cache
-	function objectIsInvalid(key){
-		cache.del(key);
-	}
+	npm install bounded-cache
 	
+	var cache = require('bounded-cache')(2000);
+	cache.set('A', {my:'object'});
+	cache.set('B', null);
+	console.log(cache.get('A')); // {my:'object'}
+	console.log(cache.get('B')); // null
+	console.log(cache.get('C')); // undefined
+	
+
+## Example 
+
+	var cache = require('bounded-cache')(2000);
 	function serve(key){
 		var obj = cache.get(key);
 		if (obj === undefined) {
@@ -81,3 +81,24 @@ Returns the number of cached keys, in [0, capacity].
 ### content()
 
 Returns all pairs (key,value), from the oldest to the last recently accessed. This operation is only here for test purposes.
+
+## Development
+
+Most well known V8 optimization tricks/advices are trade-offs which pay or not depending on many factors (making the object bigger to enable faster operations is cool until the GC kick in for example). I wrote a few implementations to compare and find what's more efficient in the specific case of bounded-cache.
+
+### Tests
+
+Test the correctness of all implementations :
+	
+	npm install -g buster-test
+	./buster-test
+
+### Benchmark
+
+Run the benchmark :
+
+	./bench
+
+The tests are in `benchmark/compare.js`
+
+I've included in the benchmark another popular and similar library. The purpose isn't to prove my library is better or faster, as its use case probably isn't exactly the same, but to have a reference point.

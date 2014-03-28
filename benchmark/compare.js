@@ -1,7 +1,7 @@
 // to run this bench, you need 
 //  npm install lru-cache
 
-var N = 200000;
+var N = 2000000;
 
 
 
