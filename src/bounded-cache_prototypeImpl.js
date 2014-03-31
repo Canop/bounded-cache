@@ -26,7 +26,7 @@
 		} else {
 			this.n++;
 		}
-		c = {k:k, v:v, p:this.last};
+		c = {k:k, v:v, p:this.last, n:null};
 		if (ttl) c.exp = Date.now()+ttl;
 		if (this.last) this.last.n = c;
 		else this.first = c;

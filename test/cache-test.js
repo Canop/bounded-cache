@@ -6,9 +6,14 @@ impls['bounded-cache-prototype'] = {
 		return require('../src/bounded-cache_prototypeImpl.js')(cap);
 	}
 };
+impls['bounded-cache_singleListPrototypeImpl'] = {
+	make: function(cap){
+		return require('../src/bounded-cache_singleListPrototypeImpl.js')(cap);
+	}
+};
 impls['bounded-cache-prototype-direct'] = {
 	make: function(cap){
-		return require('../src/bounded-cache_prototypeDirectImpl.js')(cap);
+		return require('../src/bounded-cache_OODirectImpl.js')(cap);
 	}
 };
 impls['bounded-cache-prototype-entry'] = {
@@ -21,6 +26,7 @@ impls['bounded-cache-closure'] = {
 		return require('../src/bounded-cache_closureImpl.js')(cap);
 	}
 };
+
 
 for (name in impls) {
 	(function(name){
@@ -42,7 +48,7 @@ for (name in impls) {
 				buster.assert.equals(c.peek('b'), undefined);
 				buster.assert.equals(c.peek('a'), 'a');
 				buster.assert.equals(c.size(), 3);
-				c.del('a'); // -> keys : onetoomany, d
+				buster.assert.equals(c.del('a'), 'a'); // -> keys : onetoomany, d
 				c.del('nothere');
 				buster.assert.equals(c.size(), 2);
 				buster.assert.equals(c.peek('onetoomany'), null);
@@ -52,6 +58,15 @@ for (name in impls) {
 				buster.assert.equals(c.peek('e'), undefined);
 				c.empty();
 				buster.assert.equals(c.size(), 0);
+				for (var i=0; i<100; i++) {
+					c.set(''+i, i);
+					c.get(''+((2*i)%30));
+					c.set(''+(i+10),i+10);
+					c.del(''+((5*i)%45));
+				} 
+				buster.assert.defined(c.peek('108'));
+				buster.assert.defined(c.peek('99'));
+				buster.assert.defined(c.peek('109'));
 			}
 		});
 	})(name);

@@ -1,11 +1,9 @@
 
 ## Introduction
 
-A simple in memory cache forgetting the least recently accessed entry when the maximal number of entries is reached.
+A fast LRU cache forgetting the least recently accessed entry when the maximal number of entries is reached. Optionally, age of entries can be checked to invalidate those whose time-to-leave is exceeded.
 
 All operations are fast, O(1) and synchronous.
-
-WARNING : this isn't yet officialy released and is only on github for peer-review !
 
 ## When to use it
 
@@ -18,9 +16,8 @@ This cache is mainly useful when :
 
 Gotchas :
 
-* if the logic of your application is based on time-to-leave and bounded memory isn't a requirement, this isn't for you
+* if the logic of your application is firstly based on time-to-leave and bounded memory isn't a requirement, this isn't for you
 * the implementation doesn't guarantee a removal of entries based on TTL, least recently accessed entry is the main criterium (it does guarantee get or peek don't return an expired value, though)
-* as said precedently, it's not even released, so obviously you should *not* use it...
 
 ## Quick Start
 
@@ -104,4 +101,4 @@ Run the benchmark :
 
 The tests are in `benchmark/compare.js`
 
-I've included in the benchmark another popular and similar library. The purpose isn't to prove my library is better or faster, as its use case probably isn't exactly the same, but to have a reference point.
+I've included in the benchmark another popular and similar library, you'll have to install it (read the compare.js file) to run the benchmarks.

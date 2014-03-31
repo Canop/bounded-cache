@@ -8,11 +8,11 @@ module.exports = function(capacity){
 	return {
 		set: function(k, v, ttl){
 			var c = map[k];
-			if (c) { // a value change doesn't count as an access
+			if (c !== undefined) { // a value change doesn't count as an access
 				c.v = v;
 				return;
 			}
-			if (n>=cap) {
+			if (n === cap) {
 				delete map[first.k];
 				first = first.n;
 				first.p = null;

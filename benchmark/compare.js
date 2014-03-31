@@ -3,12 +3,15 @@
 
 var N = 2000000;
 
-
-
 var impls = {};
 impls['lru-cache'] = {
 	make: function(cap){
 		return require("lru-cache")(cap);
+	}
+};
+impls['bounded-cache_singleListPrototypeImpl'] = {
+	make: function(cap){
+		return require('../src/bounded-cache_singleListPrototypeImpl.js')(cap);
 	}
 };
 impls['bounded-cache-prototype'] = {
@@ -16,9 +19,9 @@ impls['bounded-cache-prototype'] = {
 		return require('../src/bounded-cache_prototypeImpl.js')(cap);
 	}
 };
-impls['bounded-cache-prototype-direct'] = {
+impls['bounded-cache-new-direct'] = {
 	make: function(cap){
-		return require('../src/bounded-cache_prototypeDirectImpl.js')(cap);
+		return require('../src/bounded-cache_OODirectImpl.js')(cap);
 	}
 };
 impls['bounded-cache-prototype-entry'] = {
