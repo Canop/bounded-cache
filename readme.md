@@ -1,7 +1,7 @@
 
 ## Introduction
 
-A fast LRU cache forgetting the least recently accessed entry when the maximal number of entries is reached. Optionally, age of entries can be checked to invalidate those whose time-to-leave is exceeded.
+A fast and light LRU cache forgetting the least recently accessed entry when the maximal number of entries is reached. Optionally, age of entries can be checked to invalidate those whose time-to-leave is exceeded.
 
 All operations are fast, O(1) and synchronous.
 
@@ -9,15 +9,16 @@ All operations are fast, O(1) and synchronous.
 
 This cache is mainly useful when :
 
+* you want to keep in memories some resources that aren't instantly loaded
 * it's hard to predict what resources may be queried
 * queried resources are often queried again shortly after
 * you want to ensure the used memory is bounded
-* you may have a big (but bounded) number of entries
+* you may want to cache a big (but bounded) number of entries
 
 Gotchas :
 
-* if the logic of your application is firstly based on time-to-leave and bounded memory isn't a requirement, this isn't for you
-* the implementation doesn't guarantee a removal of entries based on TTL, least recently accessed entry is the main criterium (it does guarantee get or peek don't return an expired value, though)
+* if the logic of your application is mainly based on time-to-leave and bounded memory isn't a requirement, this isn't for you
+* the implementation doesn't guarantee a removal of entries based on TTL, least recently accessed entry is the main criterium (it does guarantee that `get` or `peek` don't return an expired value, though)
 
 ## Quick Start
 
