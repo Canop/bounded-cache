@@ -18,7 +18,7 @@ This cache is mainly useful when :
 Gotchas :
 
 * if the logic of your application is mainly based on time-to-leave and bounded memory isn't a requirement, this isn't for you
-* the implementation doesn't guarantee a removal of entries based on TTL, least recently accessed entry is the main criterium (it does guarantee that `get` or `peek` don't return an expired value, though)
+* the implementation doesn't guarantee a fast removal of entries based on TTL, as the removal criterium is the least recently accessed entry (it does guarantee that `get` or `peek` don't return an expired value, though)
 
 ## Quick Start
 
@@ -61,15 +61,15 @@ Sets a pair (key,value). If the key wasn't in the cache, it's considered to be t
 
 #### set(key, value, ttl)
 
-Sets a pair (key,value) with an additionl validity duration in ms. If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
+Sets a pair (key,value) with an additional validity duration in ms. If the key wasn't in the cache, it's considered to be the most recently accessed. If the cache is full, the least recently (key,value) is removed.
 
 #### get(key)
 
-Returns the value. The pair (key,value) is considered to be the most recently accessed. If nothing was set for this key, returns undefined. If the object is too old (which can only happen if a ttl was provided in set), undefined is returned.
+Returns the value. The pair (key,value) is considered to be the most recently accessed. If nothing was set for this key, returns `undefined`. If the object is too old (which can only happen if a ttl was provided in set), `undefined` is returned.
 	
 #### peek(key)
 
-Same as get without accessing the pair (and thus not preventing a removal from the cache).
+Same as get without "accessing" the pair (and thus not preventing a removal from the cache).
 	
 #### del(key)
 
@@ -85,7 +85,7 @@ Returns all pairs (key,value), from the oldest to the last recently accessed. Th
 
 ## Development
 
-Most well known V8 optimization tricks/advices are trade-offs which pay or not depending on many factors (making the object bigger to enable faster operations is cool until the GC kick in for example). I wrote a few implementations to compare and find what's more efficient in the specific case of bounded-cache.
+Most well known V8 optimization tricks/advices are trade-offs which pay or not depending on many factors (making the object bigger to enable faster operations is cool until the GC kicks in). I wrote a few implementations to compare and find what's more efficient in the specific case of bounded-cache.
 
 ### Tests
 

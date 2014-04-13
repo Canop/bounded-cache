@@ -18,8 +18,6 @@
 			return;
 		}
 		if (this.n>=this.cap) {
-			// TODO (depending on a setting ?) : search what objects expired
-			//  before removing the least recently accessed
 			delete this.map[this.first.k];
 			this.first = this.first.n;
 			this.first.p = null;
